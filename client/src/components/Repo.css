@@ -1,0 +1,31 @@
+.repo__descriptor--items {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  /* align-items: flex-start; */
+  padding: 1rem;
+  /* margin: 0; */
+  width: 100%;
+  border-bottom: 3px ridge blue;
+}
+
+.repo__descriptor--item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 1rem;
+}
+
+.repo__descriptor--items p {
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  margin: 0;
+}
+
+.repo__descriptor--items label {
+  color: darkblue;
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  margin: 0;
+}
