@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 
-function App() {
+import "./App.css";
+
+import Searches from "./containers/Searches";
+
+const App = props => {
+  const Bookmarks = React.lazy(() => {
+    return import("./containers/Bookmarks");
+  });
+
+  const Repos = React.lazy(() => {
+    return import("./containers/Repos");
+  });
+
+  const routes = (
+    <Switch>
+      <Route path="/" exact component={Searches} />
+      <Route path="/repos" component={Repos} />
+      <Route path="/bookmarks" component={Bookmarks} />
+      <Redirect to="/" />
+    </Switch>
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
     </div>
   );
-}
+};
 
-export default App;
+export default withRouter(App);
