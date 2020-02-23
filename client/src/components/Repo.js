@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { capitalize } from "../utils";
 import "./Repo.css";
@@ -17,10 +17,15 @@ export default ({
   forks_count,
   open_issues_count,
   forks,
-  open_issues
+  open_issues,
+  isRepoBookmarked
 }) => {
   const [isBookmarked, setBookmarked] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    isRepoBookmarked && setBookmarked(true);
+  }, [isRepoBookmarked]);
 
   const clickHandler = () => {
     setBookmarked(!isBookmarked);

@@ -1,14 +1,27 @@
 import { connect } from "react-redux";
 import React from "react";
+import Repo from "../components/Repo";
 
 const Bookmarks = ({ bookmarkedRepos }) => {
-  return <div>{bookmarkedRepos}</div>;
+  return (
+    <div>
+      {bookmarkedRepos.map(bookmarkedRepo => {
+        return (
+          <Repo
+            key={bookmarkedRepo.id}
+            {...bookmarkedRepo}
+            isRepoBookmarked={true}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 const mapStateToProps = state => {
   return {
-    bookmarkedRepos: state.repos.filter(repo =>
-      state.bookmarks.includes(repo.id)
+    bookmarkedRepos: state.repos.repos.filter(repo =>
+      state.bookmarks.bookmarks.includes(repo.id)
     )
   };
 };
