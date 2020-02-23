@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 
 import { newRepos } from "../../store/actions";
 
+import "./SearchForm.css";
+
 const SearchForm = props => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -24,14 +26,11 @@ const SearchForm = props => {
       }
     });
 
-    console.log(`http://localhost:3000/api/v1/repos?${searchTerms}`);
-
     const data = await fetch(
       `http://localhost:3000/api/v1/repos?${searchTerms}`
     );
+
     const repos = await data.json();
-    console.log(repos);
-    console.log(repos.data.data.items);
 
     dispatch(newRepos(repos.data.data.items));
     setLoading(false);
@@ -39,40 +38,48 @@ const SearchForm = props => {
   };
 
   const searchForm = (
-    <form action="/repos" onSubmit={handleSubmit}>
+    <form className="search-form" onSubmit={handleSubmit}>
       <label>
-        Repo Name
-        <input name="name" type="text" placeholder="random repo name"></input>
+        Name
+        <input
+          name="name"
+          type="text"
+          placeholder="e.g. node-express-app"
+        ></input>
       </label>
       <label>
-        Repo Description
+        Description
         <input
           name="description"
           type="text"
-          placeholder="this is a react repo"
+          placeholder="e.g. A node express app built from scratch"
         ></input>
       </label>
       <label>
-        Repo README
+        README
         <input
           name="readme"
           type="text"
-          placeholder="how to install..."
+          placeholder="e.g. API documentation on how to use it"
         ></input>
       </label>
       <label>
-        Repo Main Language
-        <input name="language" type="text" placeholder="JavaScript"></input>
+        Main Language
+        <input
+          name="language"
+          type="text"
+          placeholder="e.g. JavaScript"
+        ></input>
       </label>
       <label>
-        Repo Topic
+        Topic
         <input
           name="topic"
           type="text"
-          placeholder="server side rendering"
+          placeholder="e.g. Server Side Rendering"
         ></input>
       </label>
-      <button>Search</button>
+      <button className="btn-search">Search</button>
     </form>
   );
 
