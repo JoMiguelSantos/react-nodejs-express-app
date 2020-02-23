@@ -3,16 +3,24 @@ import React from "react";
 
 import Repo from "../components/Repo/Repo";
 
-const Repos = ({ repos }) => {
+const Repos = ({ repos, bookmarkedRepos }) => {
   return (
     <div
       className="container"
       style={{
-        "margin-top": "4rem"
+        marginTop: "4rem"
       }}
     >
       {repos.map(repo => (
-        <Repo key={repo.id} {...repo} />
+        <Repo
+          key={repo.id}
+          {...repo}
+          isRepoBookmarked={
+            bookmarkedRepos.filter(
+              bookmarkedRepo => bookmarkedRepo.id === repo.id
+            ).length > 0
+          }
+        />
       ))}
     </div>
   );
@@ -20,7 +28,8 @@ const Repos = ({ repos }) => {
 
 const mapStateToProps = state => {
   return {
-    repos: state.repos.repos
+    repos: state.repos.repos,
+    bookmarkedRepos: state.bookmarks.bookmarks
   };
 };
 

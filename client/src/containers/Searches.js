@@ -7,7 +7,7 @@ const Searches = () => {
     <div
       className="container"
       style={{
-        "margin-top": "4rem"
+        marginTop: "4rem"
       }}
     >
       <SearchForm />
