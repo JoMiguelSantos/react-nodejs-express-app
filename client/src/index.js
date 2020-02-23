@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import Layout from "./layout/Layout";
 
 import "./index.css";
 import App from "./App";
@@ -22,7 +23,9 @@ const store = createStore(
 const app = (
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Layout>
+        <App />
+      </Layout>
     </BrowserRouter>
   </Provider>
 );
