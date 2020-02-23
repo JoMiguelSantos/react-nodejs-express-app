@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { capitalize } from "../utils";
 import "./Repo.css";
+import { addBookmark, delBookmark } from "../store/actions";
 
 export default ({
   id,
@@ -17,6 +19,14 @@ export default ({
   forks,
   open_issues
 }) => {
+  const [isBookmarked, setBookmarked] = useState(false);
+  const dispatch = useDispatch();
+
+  const clickHandler = () => {
+    setBookmarked(!isBookmarked);
+    isBookmarked ? dispatch(delBookmark(id)) : dispatch(addBookmark(id));
+  };
+
   const repoDescriptors = {
     id: id,
     name: name,
@@ -27,21 +37,26 @@ export default ({
     stargazers_count: stargazers_count,
     watchers_count: watchers_count,
     language: language,
-    forks_count: forks_count,
     open_issues_count: open_issues_count,
     forks: forks,
     open_issues: open_issues
   };
+
   return (
     <div className="repo__descriptor--items">
-      {Object.entries(repoDescriptors).map(([key, value]) => {
-        return (
-          <div key={key} className="repo__descriptor--item">
-            <label>{capitalize(key, "_")}</label>
-            <p>{value}</p>
-          </div>
-        );
-      })}
+      {Object.entries(repoDescriptors)
+        .slice(1)
+        .map(([key, value]) => {
+          return (
+            <div key={key} className="repo__descriptor--item">
+              <label>{`${capitalize(key, "_")}:`}</label>
+              <p>{value}</p>
+            </div>
+          );
+        })}
+      <button onClick={clickHandler}>
+        {isBookmarked ? "Unbookmark" : "Bookmark"}
+      </button>
     </div>
   );
 };

@@ -5,11 +5,13 @@ export const initialState = {
 };
 
 const addBookmark = (state, action) => {
-  return state.bookmarks.concat(action.payload.repoId);
+  return { bookmarks: state.bookmarks.concat(action.payload) };
 };
 
 const delBookmark = (state, action) => {
-  return state.bookmarks.filter(bookmark => bookmark !== action.payload.repoId);
+  return {
+    bookmarks: state.bookmarks.filter(bookmark => bookmark !== action.payload)
+  };
 };
 
 const reducer = (state = initialState, action) => {
