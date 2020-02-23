@@ -10,8 +10,14 @@ const addBookmark = (state, action) => {
 
 const delBookmark = (state, action) => {
   return {
-    bookmarks: state.bookmarks.filter(bookmark => bookmark !== action.payload)
+    bookmarks: state.bookmarks.filter(bookmark => {
+      return bookmark.id !== action.payload;
+    })
   };
+};
+
+const populateBookmarks = (state, action) => {
+  return { bookmarks: action.payload };
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,6 +26,8 @@ const reducer = (state = initialState, action) => {
       return addBookmark(state, action);
     case actionTypes.DEL_BOOKMARK:
       return delBookmark(state, action);
+    case actionTypes.POPULATE_BOOKMARKS:
+      return populateBookmarks(state, action);
     default:
       return state;
   }
