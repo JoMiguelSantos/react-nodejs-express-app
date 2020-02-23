@@ -23,15 +23,6 @@ export default ({
   const [isBookmarked, setBookmarked] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    isRepoBookmarked && setBookmarked(true);
-  }, [isRepoBookmarked]);
-
-  const clickHandler = () => {
-    setBookmarked(!isBookmarked);
-    isBookmarked ? dispatch(delBookmark(id)) : dispatch(addBookmark(id));
-  };
-
   const repoDescriptors = {
     id: id,
     name: name,
@@ -47,6 +38,33 @@ export default ({
     open_issues: open_issues
   };
 
+  useEffect(() => {
+    isRepoBookmarked && setBookmarked(true);
+  }, [isRepoBookmarked]);
+
+  const clickHandler = async () => {
+    setBookmarked(!isBookmarked);
+    if (isBookmarked) {
+      const data = await fetch(`http://localhost:3000/api/v1/bookmarks`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ repoId: id })
+      });
+      data.status === 204 && dispatch(delBookmark(id));
+    } else {
+      const data = await fetch(`http://localhost:3000/api/v1/bookmarks`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ repoId: id })
+      });
+      data.status === 201 && dispatch(addBookmark(repoDescriptors));
+    }
+  };
+
   return (
     <div className="repo__descriptor--items">
       {Object.entries(repoDescriptors)
@@ -59,7 +77,10 @@ export default ({
             </div>
           );
         })}
-      <button className="btn-submit" onClick={clickHandler}>
+      <button
+        className={`btn-bookmark ${isBookmarked && `active`}`}
+        onClick={clickHandler}
+      >
         {isBookmarked ? "Unbookmark" : "Bookmark"}
       </button>
     </div>
