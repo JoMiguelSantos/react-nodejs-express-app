@@ -4,7 +4,12 @@ import Repo from "../components/Repo/Repo";
 
 const Bookmarks = ({ bookmarkedRepos }) => {
   return (
-    <div>
+    <div
+      className="container"
+      style={{
+        "margin-top": "4rem"
+      }}
+    >
       {bookmarkedRepos.map(bookmarkedRepo => {
         return (
           <Repo

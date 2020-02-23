@@ -59,7 +59,7 @@ export default ({
             </div>
           );
         })}
-      <button onClick={clickHandler}>
+      <button className="btn-submit" onClick={clickHandler}>
         {isBookmarked ? "Unbookmark" : "Bookmark"}
       </button>
     </div>

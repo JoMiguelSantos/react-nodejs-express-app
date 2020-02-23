@@ -29,3 +29,11 @@
   padding: 0.2rem;
   margin: 0;
 }
+
+.btn-submit {
+  align-self: end;
+  border-radius: 20px;
+  background-color: azure;
+  font-weight: 700;
+  margin-left: auto;
+}

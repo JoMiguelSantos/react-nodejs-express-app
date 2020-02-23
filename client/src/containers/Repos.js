@@ -4,7 +4,18 @@ import React from "react";
 import Repo from "../components/Repo/Repo";
 
 const Repos = ({ repos }) => {
-  return repos.map(repo => <Repo key={repo.id} {...repo} />);
+  return (
+    <div
+      className="container"
+      style={{
+        "margin-top": "4rem"
+      }}
+    >
+      {repos.map(repo => (
+        <Repo key={repo.id} {...repo} />
+      ))}
+    </div>
+  );
 };
 
 const mapStateToProps = state => {

@@ -1,4 +1,23 @@
 .navbar {
   display: flex;
   justify-content: space-evenly;
+  background-color: azure;
+  box-shadow: 0 0 5px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+
+.navbar > * {
+  padding: 1rem;
+  text-decoration: none;
+  color: brown;
+  font-size: 1rem;
+}
+
+.navbar > *:hover {
+  color: black;
+  background-color: white;
 }
