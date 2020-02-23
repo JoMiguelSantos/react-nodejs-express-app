@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { capitalize } from "../utils";
+import { capitalize } from "../../utils";
 import "./Repo.css";
-import { addBookmark, delBookmark } from "../store/actions";
+import { addBookmark, delBookmark } from "../../store/actions";
 
 export default ({
   id,

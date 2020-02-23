@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import React from "react";
 
-import Repo from "../components/Repo";
+import Repo from "../components/Repo/Repo";
 
 const Repos = ({ repos }) => {
   return repos.map(repo => <Repo key={repo.id} {...repo} />);

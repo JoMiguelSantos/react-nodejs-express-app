@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import fetch from "isomorphic-unfetch";
 import { useDispatch } from "react-redux";
 
-import { newRepos } from "../store/actions";
+import { newRepos } from "../../store/actions";
 
 const SearchForm = props => {
   const [isLoading, setLoading] = useState(false);
