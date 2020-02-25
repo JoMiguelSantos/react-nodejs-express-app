@@ -83,7 +83,7 @@ const SearchForm = props => {
     </form>
   );
 
-  return isLoading ? <p>Searching Repos...</p> : searchForm;
+  return isLoading ? <p className="loader">Searching Repos...</p> : searchForm;
 };
 
 export default withRouter(SearchForm);

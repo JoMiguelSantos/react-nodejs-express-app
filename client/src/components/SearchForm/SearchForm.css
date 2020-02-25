@@ -27,3 +27,8 @@ label input {
   background-color: azure;
   cursor: pointer;
 }
+
+.loader {
+  margin: 3rem;
+  font-size: 2rem;
+}
