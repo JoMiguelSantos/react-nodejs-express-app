@@ -34,8 +34,7 @@ export default ({
     watchers_count: watchers_count,
     language: language,
     open_issues_count: open_issues_count,
-    forks: forks,
-    open_issues: open_issues
+    forks: forks
   };
 
   useEffect(() => {
@@ -43,7 +42,6 @@ export default ({
   }, [isRepoBookmarked]);
 
   const clickHandler = async () => {
-    setBookmarked(!isBookmarked);
     if (isBookmarked) {
       const data = await fetch(`http://localhost:3000/api/v1/bookmarks`, {
         method: "DELETE",
@@ -63,6 +61,7 @@ export default ({
       });
       data.status === 201 && dispatch(addBookmark(repoDescriptors));
     }
+    setBookmarked(!isBookmarked);
   };
 
   return (
