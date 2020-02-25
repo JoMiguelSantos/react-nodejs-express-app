@@ -8,7 +8,7 @@ const Bookmarks = ({ bookmarkedRepos }) => {
   // get bookmarks from DB if state is empty
   useEffect(() => {
     const getBookmarks = async () => {
-      const data = await fetch(`http://localhost:3000/api/v1/bookmarks`);
+      const data = await fetch(`http://localhost:4000/api/v1/bookmarks`);
       const bookmarks = await data.json();
       return bookmarks;
     };

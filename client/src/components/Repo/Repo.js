@@ -43,7 +43,7 @@ export default ({
 
   const clickHandler = async () => {
     if (isBookmarked) {
-      const data = await fetch(`http://localhost:3000/api/v1/bookmarks`, {
+      const data = await fetch(`http://localhost:4000/api/v1/bookmarks`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
@@ -52,7 +52,7 @@ export default ({
       });
       data.status === 204 && dispatch(delBookmark(id));
     } else {
-      const data = await fetch(`http://localhost:3000/api/v1/bookmarks`, {
+      const data = await fetch(`http://localhost:4000/api/v1/bookmarks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

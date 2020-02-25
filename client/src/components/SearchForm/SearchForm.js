@@ -27,7 +27,7 @@ const SearchForm = props => {
     });
 
     const data = await fetch(
-      `http://localhost:3000/api/v1/repos?${searchTerms}`
+      `http://localhost:4000/api/v1/repos?${searchTerms}`
     );
 
     const repos = await data.json();
