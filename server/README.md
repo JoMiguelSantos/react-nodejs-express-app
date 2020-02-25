@@ -4,6 +4,10 @@
 
 This service gets repositories from the [GitHub API v3](https://developer.github.com/v3/) using search terms and allows you to bookmark your favorite repositories.
 
+## Install dependencies
+
+To install all necessary dependencies run `npm install`
+
 ## Start Server
 
 To start the server run `npm start`
