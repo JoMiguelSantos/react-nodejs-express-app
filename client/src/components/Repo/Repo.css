@@ -3,10 +3,8 @@
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
-  /* align-items: flex-start; */
   padding: 1rem;
-  /* margin: 0; */
-  width: 100%;
+  width: 100vw;
   border-bottom: 3px ridge blue;
 }
 
@@ -36,6 +34,13 @@
   background-color: azure;
   font-weight: 700;
   margin-left: auto;
+  margin-right: 2rem;
+}
+
+.btn-bookmark:hover {
+  background-color: darkblue;
+  color: aliceblue;
+  cursor: pointer;
 }
 
 .btn-bookmark.active {
