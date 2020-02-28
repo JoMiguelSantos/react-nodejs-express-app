@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import fetch from "isomorphic-unfetch";
+
 import { useDispatch } from "react-redux";
 
 import { newRepos } from "../../store/actions";

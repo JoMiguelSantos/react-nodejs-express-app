@@ -14,10 +14,8 @@ export default ({
   stargazers_count,
   watchers_count,
   language,
-  forks_count,
   open_issues_count,
   forks,
-  open_issues,
   isRepoBookmarked
 }) => {
   const [isBookmarked, setBookmarked] = useState(false);
