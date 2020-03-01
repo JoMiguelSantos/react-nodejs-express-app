@@ -8,6 +8,7 @@ import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 import { shallow, mount } from "enzyme";
 import mockAPIRes from "../../../../githubResExample";
+import { FetchMock } from "@react-mock/fetch";
 
 // beforeEach(() => {
 //   const scope = nock("http://localhost:4000")
@@ -76,9 +77,29 @@ function withRouterRedux({
   return {
     ...render(
       <Router history={history}>
-        <Provider store={store}>
-          <SearchForm />
-        </Provider>
+        <FetchMock
+          mocks={[
+            {
+              matcher: expectedFetchPath,
+              method: "GET",
+              response: {
+                status: "success",
+                data: {
+                  data: mockAPIRes
+                }
+              }
+            },
+            {
+              matcher: "http://localhost:4000/api/v1/repos?",
+              method: "GET",
+              response: {}
+            }
+          ]}
+        >
+          <Provider store={store}>
+            <SearchForm />
+          </Provider>
+        </FetchMock>
       </Router>
     ),
     store,
@@ -93,9 +114,29 @@ function mountWithRouterRedux({
   const history = createMemoryHistory();
   return (
     <Router history={history}>
-      <Provider store={store}>
-        <SearchForm />
-      </Provider>
+      <FetchMock
+        mocks={[
+          {
+            matcher: expectedFetchPath,
+            method: "GET",
+            response: {
+              status: "success",
+              data: {
+                data: mockAPIRes
+              }
+            }
+          },
+          {
+            matcher: "http://localhost:4000/api/v1/repos?",
+            method: "GET",
+            response: {}
+          }
+        ]}
+      >
+        <Provider store={store}>
+          <SearchForm />
+        </Provider>
+      </FetchMock>
     </Router>
   );
 }
@@ -107,27 +148,33 @@ describe("<SearchForm/> unit tests", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("shows loading if isLoading is true", async () => {
+  it("shows empty if isEmpty is true", async () => {
     const { getByText } = withRouterRedux();
     fireEvent.click(getByText(/search/i));
-    await waitForElement(() => getByText(/searching/i));
+    await waitForElement(() => getByText("No Repos were found"));
   });
 
   it("pushes router to /repos after Search is clicked", async () => {
+    // const { getByText, history } = withRouterRedux();
+    // fireEvent.click(getByText(/search/i));
+
     const container = mount(mountWithRouterRedux());
-    expect(container.find("button").text()).toEqual("Search");
-    container.find("button").simulate("click");
-    expect(container.prop("history").location.pathname).toBe("/repos");
+    expect(container.find(".btn-search").text()).toEqual("Search");
+    container.find(".btn-search").simulate("click");
+    console.log(window.location.pathname);
+    // console.log(window.history.location.pathname);
+    console.log(container.props(), container.instance(), container.html());
+    // expect(container.prop("history").location.pathname).toBe("/repos");
   });
 
-  it("sends request to backend if it's clicked ", done => {
+  it("sends request to backend if it's clicked ", () => {
     // const mockSuccessResponse = {};
     // const mockJsonPromise = Promise.resolve(mockSuccessResponse); // 2
     // const mockFetchPromise = Promise.resolve({
     //   json: () => mockJsonPromise
     // });
     const container = mount(mountWithRouterRedux());
-    const fetchSpy = jest.spyOn(window, "fetch");
+    // const fetchSpy = jest.spyOn(global, "fetch");
     // jest.spyOn(global, "fetch").mockImplementationOnce(() => mockFetchPromise);
     expect(container.find("button").text()).toEqual("Search");
     container.find("button").simulate("click");

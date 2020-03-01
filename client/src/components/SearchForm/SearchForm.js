@@ -9,6 +9,7 @@ import "./SearchForm.css";
 
 const SearchForm = props => {
   const [isLoading, setLoading] = useState(false);
+  const [isEmpty, setEmpty] = useState(false);
   const dispatch = useDispatch();
 
   const handleSubmit = async e => {
@@ -25,14 +26,25 @@ const SearchForm = props => {
         }
       }
     });
-    const data = await fetch(
-      `http://localhost:4000/api/v1/repos?${searchTerms}`
-    );
-    const repos = await data.json();
 
-    dispatch(newRepos(repos.data.data.items));
+    try {
+      const data = await fetch(
+        `http://localhost:4000/api/v1/repos?${searchTerms}`
+      );
+      const repos = await data.json();
+      console.log(repos);
+      if (repos) {
+        setEmpty(true);
+      } else {
+        dispatch(newRepos(repos.data.data.items));
+      }
+    } catch (err) {
+      throw Error(err);
+    }
+
     setLoading(false);
     props.history.push("/repos");
+    console.log(props.history);
   };
 
   const searchForm = (
@@ -81,7 +93,13 @@ const SearchForm = props => {
     </form>
   );
 
-  return isLoading ? <p className="loader">Searching Repos...</p> : searchForm;
+  if (isLoading) {
+    return <p className="loader">Searching Repos...</p>;
+  } else if (isEmpty) {
+    return <p className="empty-state">No Repos were found</p>;
+  } else {
+    return searchForm;
+  }
 };
 
 export default withRouter(SearchForm);
