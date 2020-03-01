@@ -19,10 +19,10 @@ const newRepos = async (state, action) => {
   console.log("wrong path");
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = async (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.NEW_REPOS:
-      return newRepos(state, action);
+      return await newRepos(state, action);
     default:
       return state;
   }
