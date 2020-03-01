@@ -3,6 +3,10 @@ import React from "react";
 
 import Repo from "../components/Repo/Repo";
 
+//import selectors
+import { getRepos } from "../store/reducers/repos";
+import { getBookmarks } from "../store/reducers/bookmarks";
+
 const Repos = ({ repos, bookmarkedRepos }) => {
   return (
     <div
@@ -32,8 +36,8 @@ const Repos = ({ repos, bookmarkedRepos }) => {
 
 const mapStateToProps = state => {
   return {
-    repos: state.repos.repos,
-    bookmarkedRepos: state.bookmarks.bookmarks
+    repos: getRepos(state),
+    bookmarkedRepos: getBookmarks(state)
   };
 };
 

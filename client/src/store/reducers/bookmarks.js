@@ -35,3 +35,4 @@ const reducer = (state = initialState, action) => {
 
 export default reducer;
 export { initialState };
+export const getBookmarks = state => state.bookmarks.bookmarks;

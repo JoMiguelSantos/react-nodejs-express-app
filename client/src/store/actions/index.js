@@ -1,2 +1,2 @@
 export { delBookmark, addBookmark, populateBookmarks } from "./bookmarks";
-export { newRepos } from "./repos";
+export { fetchRepos, setRepos } from "./repos";

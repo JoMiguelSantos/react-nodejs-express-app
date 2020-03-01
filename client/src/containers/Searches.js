@@ -1,8 +1,10 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 import SearchForm from "../components/SearchForm/SearchForm";
+import "./Searches.css";
 
-const Searches = () => {
+const Searches = props => {
+  const isSearching = useSelector(state => state.repos.searching);
   return (
     <div
       className="container"
@@ -10,7 +12,11 @@ const Searches = () => {
         marginTop: "4rem"
       }}
     >
-      <SearchForm />
+      {isSearching ? (
+        <p className="loader">Searching Repos...</p>
+      ) : (
+        <SearchForm />
+      )}
     </div>
   );
 };

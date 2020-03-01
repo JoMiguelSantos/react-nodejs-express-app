@@ -10,7 +10,6 @@
 }
 
 label input {
-  /* margin: 0.5rem; */
   padding-left: 0.5rem;
   width: 80%;
   margin-left: auto;
@@ -28,7 +27,7 @@ label input {
   cursor: pointer;
 }
 
-.loader {
-  margin: 3rem;
-  font-size: 2rem;
+.empty-submit {
+  margin: 1rem;
+  color: darkred;
 }

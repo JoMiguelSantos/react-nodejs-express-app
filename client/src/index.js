@@ -10,14 +10,23 @@ import * as serviceWorker from "./serviceWorker";
 
 import bookmarksReducer from "./store/reducers/bookmarks";
 import reposReducer from "./store/reducers/repos";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunkMiddleware from "redux-thunk";
+
+const bindMiddleware = middleware => {
+  if (process.env.NODE_ENV !== "production") {
+    return composeWithDevTools(applyMiddleware(...middleware));
+  }
+  return applyMiddleware(...middleware);
+};
 
 const store = createStore(
   combineReducers({
     repos: reposReducer,
     bookmarks: bookmarksReducer
   }),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  bindMiddleware([thunkMiddleware])
 );
 
 const app = (

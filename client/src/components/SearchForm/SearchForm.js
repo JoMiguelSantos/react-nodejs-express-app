@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
-
+import React, { useState } from "react";
+import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
-
-import { newRepos } from "../../store/actions";
-
+import { withRouter } from "react-router-dom";
+import { fetchRepos } from "../../store/actions";
 import "./SearchForm.css";
 
-const SearchForm = props => {
-  const [isLoading, setLoading] = useState(false);
+const SearchForm = ({ history }) => {
+  const [isEmpty, setEmpty] = useState(false);
   const dispatch = useDispatch();
+  const boundFetchRepos = bindActionCreators(fetchRepos, dispatch);
 
-  const handleSubmit = e => {
-    setLoading(true);
+  const handleSubmit = async e => {
     e.preventDefault();
 
     let searchTerms = ``;
@@ -25,15 +23,17 @@ const SearchForm = props => {
         }
       }
     });
-    console.log(searchTerms);
+    console.log(!searchTerms);
 
-    if (searchTerms) dispatch(newRepos(searchTerms));
+    setEmpty(!searchTerms);
+    const repos = searchTerms ? await boundFetchRepos(searchTerms) : "";
+    console.log(repos);
 
-    setLoading(false);
-    props.history.push("/repos");
+    if (!repos) return;
+    if (repos && repos.length > 0) history.push("/repos");
   };
 
-  const searchForm = (
+  return (
     <form className="search-form" onSubmit={handleSubmit}>
       <label>
         Name
@@ -76,10 +76,13 @@ const SearchForm = props => {
         ></input>
       </label>
       <button className="btn-search">Search</button>
+      {isEmpty && (
+        <p className="empty-submit">
+          Please fill in at least one of the fields
+        </p>
+      )}
     </form>
   );
-
-  return isLoading ? <p className="loader">Searching Repos...</p> : searchForm;
 };
 
 export default withRouter(SearchForm);
