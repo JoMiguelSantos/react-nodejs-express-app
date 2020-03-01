@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
@@ -9,10 +9,9 @@ import "./SearchForm.css";
 
 const SearchForm = props => {
   const [isLoading, setLoading] = useState(false);
-  const [isEmpty, setEmpty] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     setLoading(true);
     e.preventDefault();
 
@@ -26,25 +25,12 @@ const SearchForm = props => {
         }
       }
     });
+    console.log(searchTerms);
 
-    try {
-      const data = await fetch(
-        `http://localhost:4000/api/v1/repos?${searchTerms}`
-      );
-      const repos = await data.json();
-      console.log(repos);
-      if (repos) {
-        setEmpty(true);
-      } else {
-        dispatch(newRepos(repos.data.data.items));
-      }
-    } catch (err) {
-      throw Error(err);
-    }
+    if (searchTerms) dispatch(newRepos(searchTerms));
 
     setLoading(false);
     props.history.push("/repos");
-    console.log(props.history);
   };
 
   const searchForm = (
@@ -93,13 +79,7 @@ const SearchForm = props => {
     </form>
   );
 
-  if (isLoading) {
-    return <p className="loader">Searching Repos...</p>;
-  } else if (isEmpty) {
-    return <p className="empty-state">No Repos were found</p>;
-  } else {
-    return searchForm;
-  }
+  return isLoading ? <p className="loader">Searching Repos...</p> : searchForm;
 };
 
 export default withRouter(SearchForm);

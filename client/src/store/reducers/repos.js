@@ -4,8 +4,19 @@ export const initialState = {
   repos: []
 };
 
-const newRepos = (state, action) => {
-  return { repos: action.payload };
+const newRepos = async (state, action) => {
+  const data = await fetch(
+    `http://localhost:4000/api/v1/repos?${action.payload}`
+  );
+  const repos = await data.json();
+  console.log(repos);
+  console.log(repos.data.data.items);
+
+  if (repos) {
+    console.log("correct path");
+    return { repos: repos.data.data.items };
+  }
+  console.log("wrong path");
 };
 
 const reducer = (state = initialState, action) => {

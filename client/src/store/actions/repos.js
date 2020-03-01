@@ -1,8 +1,8 @@
 import * as actionTypes from "./actionTypes";
 
-export const newRepos = repos => {
+export const newRepos = searchTerms => {
   return {
     type: actionTypes.NEW_REPOS,
-    payload: repos
+    payload: searchTerms
   };
 };
