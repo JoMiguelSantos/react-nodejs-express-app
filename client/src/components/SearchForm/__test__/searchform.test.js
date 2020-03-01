@@ -10,6 +10,10 @@ import { shallow, mount } from "enzyme";
 import mockAPIRes from "../../../../githubResExample";
 import { FetchMock } from "@react-mock/fetch";
 
+jest.mock("node-fetch");
+import fetch from "node-fetch";
+const { Response } = jest.requireActual("node-fetch");
+
 // beforeEach(() => {
 //   const scope = nock("http://localhost:4000")
 //     .get("/api/v1/repos?")
@@ -141,7 +145,39 @@ function mountWithRouterRedux({
   );
 }
 
+function withRouterReduxNoFetch({
+  initialState,
+  store = createStore(reducer, initialState)
+} = {}) {
+  const history = createMemoryHistory();
+  return {
+    ...render(
+      <Router history={history}>
+        <Provider store={store}>
+          <SearchForm />
+        </Provider>
+      </Router>
+    ),
+    store,
+    history
+  };
+}
+
 describe("<SearchForm/> unit tests", () => {
+  it("testing mock fetch", async () => {
+    fetch.mockReturnValue(Promise.resolve(new Response("4")));
+
+    const { getByText } = withRouterReduxNoFetch();
+    fireEvent.click(getByText(/search/i));
+    console.log(fetch);
+
+    expect(fetch).toHaveBeenCalledTimes(1);
+    // expect(fetch).toHaveBeenCalledWith('http://website.com/users', {
+    //   method: 'POST',
+    // });
+    // expect(userId).toBe('4');
+  });
+
   // test snapshot which should not change often
   it("matches the snapshot", () => {
     const { container } = withRouterRedux();
@@ -161,9 +197,11 @@ describe("<SearchForm/> unit tests", () => {
     const container = mount(mountWithRouterRedux());
     expect(container.find(".btn-search").text()).toEqual("Search");
     container.find(".btn-search").simulate("click");
-    console.log(window.location.pathname);
-    // console.log(window.history.location.pathname);
-    console.log(container.props(), container.instance(), container.html());
+    // console.log(window.location.pathname);
+    // // console.log(window.history.location.pathname);
+    // console.log(container.props().history);
+    // console.log(container.instance());
+    // console.log(container.debug());
     // expect(container.prop("history").location.pathname).toBe("/repos");
   });
 

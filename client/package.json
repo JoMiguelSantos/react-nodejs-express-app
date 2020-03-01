@@ -49,9 +49,6 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ],
-    "setupFilesAfterEnv": [
-      "./setupTests.js"
     ]
   }
 }
