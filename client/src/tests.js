@@ -1,3 +1,6 @@
+// make useEffect to be called on the rendering and not after the first rendering
+jest.spyOn(React, "useEffect").mockImplementation(f => f());
+
 // SIMPLE UI RENDERING CASE
 // hello.js
 import React from "react";

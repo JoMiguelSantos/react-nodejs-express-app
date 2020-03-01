@@ -16,9 +16,9 @@ const Repos = ({ repos, bookmarkedRepos }) => {
           key={repo.id}
           {...repo}
           isRepoBookmarked={
-            bookmarkedRepos.filter(
+            !!bookmarkedRepos.find(
               bookmarkedRepo => bookmarkedRepo.id === repo.id
-            ).length > 0
+            )
           }
         />
       ))}

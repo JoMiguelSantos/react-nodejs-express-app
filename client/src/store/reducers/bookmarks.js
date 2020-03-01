@@ -1,6 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 
-export const initialState = {
+const initialState = {
   bookmarks: []
 };
 
@@ -34,3 +34,4 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+export { initialState };

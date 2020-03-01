@@ -25,11 +25,9 @@ const SearchForm = props => {
         }
       }
     });
-
     const data = await fetch(
       `http://localhost:4000/api/v1/repos?${searchTerms}`
     );
-
     const repos = await data.json();
 
     dispatch(newRepos(repos.data.data.items));
