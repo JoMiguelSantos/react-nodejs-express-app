@@ -1,20 +1,15 @@
 import { connect } from "react-redux";
 import React from "react";
-
-import Repo from "../components/Repo/Repo";
+import "./Repos.css";
+import Repo from "../../components/Repo/Repo";
 
 //import selectors
-import { getRepos } from "../store/reducers/repos";
-import { getBookmarks } from "../store/reducers/bookmarks";
+import { getRepos } from "../../store/reducers/repos";
+import { getBookmarks } from "../../store/reducers/bookmarks";
 
 const Repos = ({ repos, bookmarkedRepos }) => {
   return (
-    <div
-      className="container"
-      style={{
-        marginTop: "4rem"
-      }}
-    >
+    <div className="container">
       {repos && repos.length > 0 ? (
         repos.map(repo => (
           <Repo
