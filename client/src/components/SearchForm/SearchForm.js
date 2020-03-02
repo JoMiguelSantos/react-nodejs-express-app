@@ -23,13 +23,10 @@ const SearchForm = ({ history }) => {
         }
       }
     });
-    console.log(!searchTerms);
 
     setEmpty(!searchTerms);
     const repos = searchTerms ? await boundFetchRepos(searchTerms) : "";
-    console.log(repos);
 
-    if (!repos) return;
     if (repos && repos.length > 0) history.push("/repos");
   };
 
