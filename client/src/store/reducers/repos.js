@@ -1,6 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 
-export const initialState = {
+const initialState = {
   repos: [],
   searching: false
 };
@@ -25,4 +25,5 @@ const reducer = (state = initialState, action) => {
 };
 
 export default reducer;
+export { initialState };
 export const getRepos = state => state.repos.repos;
