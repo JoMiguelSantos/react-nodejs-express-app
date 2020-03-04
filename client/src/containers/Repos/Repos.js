@@ -9,7 +9,7 @@ import { getBookmarks } from "../../store/reducers/bookmarks";
 
 const Repos = ({ repos, bookmarkedRepos }) => {
   return (
-    <div className="container">
+    <div data-cy="repos" className="container">
       {repos && repos.length > 0 ? (
         repos.map(repo => (
           <Repo
