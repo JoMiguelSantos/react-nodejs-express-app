@@ -1,20 +1,29 @@
 import * as actionTypes from "../actions/actionTypes";
 
-export const initialState = {
-  repos: []
+const initialState = {
+  repos: [],
+  searching: false
 };
 
-const newRepos = (state, action) => {
-  return { repos: action.payload };
+const searchingRepos = (state, action) => {
+  return { ...state, searching: action.payload };
+};
+
+const setRepos = (state, action) => {
+  return { ...state, repos: action.payload };
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.NEW_REPOS:
-      return newRepos(state, action);
+    case actionTypes.SET_REPOS:
+      return setRepos(state, action);
+    case actionTypes.SEARCHING_REPOS:
+      return searchingRepos(state, action);
     default:
       return state;
   }
 };
 
 export default reducer;
+export { initialState };
+export const getRepos = state => state.repos.repos;

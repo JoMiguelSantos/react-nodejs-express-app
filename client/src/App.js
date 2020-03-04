@@ -3,15 +3,15 @@ import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 
 import "./App.css";
 
-import Searches from "./containers/Searches";
+import Searches from "./containers/Searches/Searches";
 
 const App = props => {
   const Bookmarks = React.lazy(() => {
-    return import("./containers/Bookmarks");
+    return import("./containers/Bookmarks/Bookmarks");
   });
 
   const Repos = React.lazy(() => {
-    return import("./containers/Repos");
+    return import("./containers/Repos/Repos");
   });
 
   const routes = (

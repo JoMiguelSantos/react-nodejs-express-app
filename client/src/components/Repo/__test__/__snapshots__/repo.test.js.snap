@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Repo /> unit tests matches the previous snapshot 1`] = `
+<div>
+  <div
+    class="repo__descriptor--items"
+  >
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Name:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Html Url:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Description:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Created At:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Updated At:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Stargazers Count:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Watchers Count:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Language:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Open Issues Count:
+      </label>
+      <p />
+    </div>
+    <div
+      class="repo__descriptor--item"
+    >
+      <label>
+        Forks:
+      </label>
+      <p />
+    </div>
+    <button
+      class="btn-bookmark false"
+    >
+      Bookmark
+    </button>
+  </div>
+</div>
+`;

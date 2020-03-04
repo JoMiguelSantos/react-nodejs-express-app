@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchForm/> unit tests matches the snapshot 1`] = `
+<div>
+  <form
+    class="search-form"
+  >
+    <label>
+      Name
+      <input
+        name="name"
+        placeholder="e.g. node-express-app"
+        type="text"
+      />
+    </label>
+    <label>
+      Description
+      <input
+        name="description"
+        placeholder="e.g. A node express app built from scratch"
+        type="text"
+      />
+    </label>
+    <label>
+      README
+      <input
+        name="readme"
+        placeholder="e.g. API documentation on how to use it"
+        type="text"
+      />
+    </label>
+    <label>
+      Main Language
+      <input
+        name="language"
+        placeholder="e.g. JavaScript"
+        type="text"
+      />
+    </label>
+    <label>
+      Topic
+      <input
+        name="topic"
+        placeholder="e.g. Server Side Rendering"
+        type="text"
+      />
+    </label>
+    <button
+      class="btn-search"
+    >
+      Search
+    </button>
+  </form>
+</div>
+`;
