@@ -81,7 +81,7 @@ exports[`<Repo /> unit tests matches the previous snapshot 1`] = `
       class="repo__descriptor--item"
     >
       <label>
-        Forks:
+        Forks Count:
       </label>
       <p />
     </div>
