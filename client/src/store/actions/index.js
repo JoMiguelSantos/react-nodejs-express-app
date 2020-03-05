@@ -1,9 +1,11 @@
 export {
-  delBookmark,
+  removeBookmark,
   addBookmark,
   populateBookmarks,
   gettingBookmarks,
-  fetchBookmarks
+  fetchBookmarks,
+  postBookmark,
+  deleteBookmark
 } from "./bookmarks";
 
 export { fetchRepos, setRepos, searchingRepos } from "./repos";

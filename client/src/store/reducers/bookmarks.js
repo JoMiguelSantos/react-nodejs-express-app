@@ -9,7 +9,7 @@ const addBookmark = (state, action) => {
   return { ...state, bookmarks: state.bookmarks.concat(action.payload) };
 };
 
-const delBookmark = (state, action) => {
+const removeBookmark = (state, action) => {
   return {
     ...state,
     bookmarks: state.bookmarks.filter(bookmark => {
@@ -30,8 +30,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_BOOKMARK:
       return addBookmark(state, action);
-    case actionTypes.DEL_BOOKMARK:
-      return delBookmark(state, action);
+    case actionTypes.REMOVE_BOOKMARK:
+      return removeBookmark(state, action);
     case actionTypes.GETTING_BOOKMARKS:
       return gettingBookmarks(state, action);
     case actionTypes.POPULATE_BOOKMARKS:

@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { capitalize } from "../../utils";
 import "./Repo.css";
-import { addBookmark, delBookmark } from "../../store/actions";
+import { postBookmark, deleteBookmark } from "../../store/actions";
 
 export default ({
   id,
@@ -38,26 +38,10 @@ export default ({
     forks_count: forks_count
   };
 
-  const clickHandler = async () => {
-    if (isBookmarked) {
-      const data = await fetch(`http://localhost:4000/api/v1/bookmarks`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ repoId: id })
-      });
-      data.status === 204 && dispatch(delBookmark(id));
-    } else {
-      const data = await fetch(`http://localhost:4000/api/v1/bookmarks`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ repoId: id })
-      });
-      data.status === 201 && dispatch(addBookmark(repoDescriptors));
-    }
+  const clickHandler = () => {
+    isBookmarked
+      ? dispatch(deleteBookmark(id))
+      : dispatch(postBookmark(repoDescriptors));
   };
 
   return (

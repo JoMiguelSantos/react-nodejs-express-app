@@ -7,17 +7,67 @@ export const addBookmark = bookmarkedRepo => {
   };
 };
 
-export const delBookmark = repoId => {
+export const addingBookmark = payload => {
   return {
-    type: actionTypes.DEL_BOOKMARK,
+    type: actionTypes.ADDING_BOOKMARK,
+    payload: payload
+  };
+};
+
+export const postBookmark = bookmarkedRepo => {
+  return dispatch => {
+    dispatch(addingBookmark(true));
+    return fetch(`http://localhost:4000/api/v1/bookmarks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ repoId: bookmarkedRepo.id })
+    })
+      .then(r => r.json())
+      .then(json => {
+        if (json.error) {
+          throw json.error;
+        }
+        dispatch(addBookmark(bookmarkedRepo));
+        dispatch(addingBookmark(false));
+        return json.data.data;
+      });
+  };
+};
+
+export const removeBookmark = repoId => {
+  return {
+    type: actionTypes.REMOVE_BOOKMARK,
     payload: repoId
   };
 };
 
-export const gettingBookmarks = payload => {
+export const deletingBookmark = payload => {
   return {
-    type: actionTypes.GETTING_BOOKMARKS,
+    type: actionTypes.DELETING_BOOKMARK,
     payload: payload
+  };
+};
+
+export const deleteBookmark = repoId => {
+  return dispatch => {
+    dispatch(deletingBookmark(true));
+    return fetch(`http://localhost:4000/api/v1/bookmarks`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ repoId: repoId })
+    }).then(res => {
+      if (res.error) {
+        throw res.error;
+      }
+
+      dispatch(removeBookmark(repoId));
+      dispatch(deletingBookmark(false));
+      return res;
+    });
   };
 };
 
@@ -25,6 +75,13 @@ export const populateBookmarks = bookmarkedRepos => {
   return {
     type: actionTypes.POPULATE_BOOKMARKS,
     payload: bookmarkedRepos
+  };
+};
+
+export const gettingBookmarks = payload => {
+  return {
+    type: actionTypes.GETTING_BOOKMARKS,
+    payload: payload
   };
 };
 
