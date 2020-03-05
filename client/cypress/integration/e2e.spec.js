@@ -3,35 +3,7 @@ describe("end to end testing", () => {
     cy.visit("/");
 
     // fill in form and click search
-    cy.contains(/name/i)
-      .children()
-      .as("nameInput")
-      .click()
-      .type("react");
-    cy.contains(/description/i)
-      .children()
-      .click()
-      .as("descriptionInput")
-      .type("redux");
-    cy.contains(/readme/i)
-      .children()
-      .click()
-      .as("readmeInput")
-      .type("api");
-    cy.contains(/language/i)
-      .children()
-      .click()
-      .as("languageInput")
-      .type("javascript");
-    cy.contains(/topic/i)
-      .children()
-      .click()
-      .as("topicInput")
-      .type("web");
-    cy.get("button")
-      .contains("Search")
-      .as("searchButton")
-      .click();
+    cy.fillAndSubmitForm("react", "redux", "api", "javascript", "web");
 
     // bookmark 4 random repos
     cy.get(".repo__descriptor--items").each((repo, index, repos) => {
@@ -60,29 +32,13 @@ describe("end to end testing", () => {
     cy.contains("New Search").click();
 
     // submit form again with different text
-    cy.contains(/name/i)
-      .children()
-      .click()
-      .type("deep learning");
-    cy.contains(/description/i)
-      .children()
-      .click()
-      .type("machine learning");
-    cy.contains(/readme/i)
-      .children()
-      .click()
-      .type("tensorflow");
-    cy.contains(/language/i)
-      .children()
-      .click()
-      .type("python");
-    cy.contains(/topic/i)
-      .children()
-      .click()
-      .type("ai");
-    cy.get("button")
-      .contains("Search")
-      .click();
+    cy.fillAndSubmitForm(
+      "deep learning",
+      "machine learning",
+      "tensorflow",
+      "python",
+      "ai"
+    );
 
     // bookmark 4 random repos
     cy.get(".repo__descriptor--items").each((repo, index, repos) => {
