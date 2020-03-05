@@ -11,17 +11,7 @@ const Repos = ({ repos, bookmarkedRepos }) => {
   return (
     <div data-cy="repos" className="container">
       {repos && repos.length > 0 ? (
-        repos.map(repo => (
-          <Repo
-            key={repo.id}
-            {...repo}
-            isRepoBookmarked={
-              !!bookmarkedRepos.find(
-                bookmarkedRepo => bookmarkedRepo.id === repo.id
-              )
-            }
-          />
-        ))
+        repos.map(repo => <Repo key={repo.id} {...repo} />)
       ) : (
         <p className="empty-state">There are currently no repositories saved</p>
       )}

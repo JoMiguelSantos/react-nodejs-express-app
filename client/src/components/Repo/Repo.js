@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { capitalize } from "../../utils";
 import "./Repo.css";
 import { addBookmark, delBookmark } from "../../store/actions";
@@ -15,11 +15,14 @@ export default ({
   watchers_count,
   language,
   open_issues_count,
-  forks,
-  isRepoBookmarked
+  forks_count
 }) => {
-  const [isBookmarked, setBookmarked] = useState(false);
   const dispatch = useDispatch();
+  const isBookmarked = useSelector(
+    state =>
+      state.bookmarks.bookmarks &&
+      !!state.bookmarks.bookmarks.find(repo => repo.id === id)
+  );
 
   const repoDescriptors = {
     id: id,
@@ -32,12 +35,8 @@ export default ({
     watchers_count: watchers_count,
     language: language,
     open_issues_count: open_issues_count,
-    forks: forks
+    forks_count: forks_count
   };
-
-  useEffect(() => {
-    isRepoBookmarked && setBookmarked(true);
-  }, [isRepoBookmarked]);
 
   const clickHandler = async () => {
     if (isBookmarked) {
@@ -59,7 +58,6 @@ export default ({
       });
       data.status === 201 && dispatch(addBookmark(repoDescriptors));
     }
-    setBookmarked(!isBookmarked);
   };
 
   return (

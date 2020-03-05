@@ -20,13 +20,7 @@ const Bookmarks = ({ bookmarkedRepos, isGettingBookmarks }) => {
     <div className="container">
       {bookmarkedRepos && bookmarkedRepos.length > 0
         ? bookmarkedRepos.map(bookmarkedRepo => {
-            return (
-              <Repo
-                key={bookmarkedRepo.id}
-                {...bookmarkedRepo}
-                isRepoBookmarked={true}
-              />
-            );
+            return <Repo key={bookmarkedRepo.id} {...bookmarkedRepo} />;
           })
         : !isGettingBookmarks && (
             <p className="empty-state">
