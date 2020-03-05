@@ -173,7 +173,7 @@ describe("Redux store reducers", () => {
       });
     });
 
-    it("should handle DEL_BOOKMARK", () => {
+    it("should handle REMOVE_BOOKMARK", () => {
       const filledState = {
         bookmarks: [
           { id: 3, name: "repo3" },
@@ -183,7 +183,7 @@ describe("Redux store reducers", () => {
       };
       expect(
         bookmarksReducer(filledState, {
-          type: types.DEL_BOOKMARK,
+          type: types.REMOVE_BOOKMARK,
           payload: 3
         })
       ).toEqual({
@@ -198,7 +198,7 @@ describe("Redux store reducers", () => {
             gettingBookmarks: false
           },
           {
-            type: types.DEL_BOOKMARK,
+            type: types.REMOVE_BOOKMARK,
             payload: 4
           }
         )

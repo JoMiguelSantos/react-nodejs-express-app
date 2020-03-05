@@ -1,5 +1,3 @@
-import reposReducer from "../../reducers/repos";
-import bookmarksReducer from "../../reducers/bookmarks";
 import * as actions from "../../actions";
 import * as types from "../../actions/actionTypes";
 
@@ -12,7 +10,7 @@ const mockStore = configureMockStore(middlewares);
 
 describe("Redux actions", () => {
   describe("repos actions", () => {
-    it("should create an action to search for repos", () => {
+    it("should create an action to handle searching for repos", () => {
       const expectedAction = {
         type: types.SEARCHING_REPOS,
         payload: true
@@ -78,10 +76,10 @@ describe("Redux actions", () => {
     it("should del a repo from the bookmarks", () => {
       const bookmarkedRepo = { id: 1, name: "repo1" };
       const expectedAction = {
-        type: types.DEL_BOOKMARK,
+        type: types.REMOVE_BOOKMARK,
         payload: bookmarkedRepo.id
       };
-      expect(actions.delBookmark(bookmarkedRepo.id)).toEqual(expectedAction);
+      expect(actions.removeBookmark(bookmarkedRepo.id)).toEqual(expectedAction);
     });
 
     it("should create an action for getting boorkmarks", () => {
@@ -106,7 +104,7 @@ describe("Redux actions", () => {
         fetchMock.restore();
       });
 
-      it("creates actions GETTING_REPOS and POPULATE_BOOKMARKS when fetching bookmarks", () => {
+      it("creates actions GETTING_BOOKMARKS and POPULATE_BOOKMARKS when fetching bookmarks", () => {
         const bookmarks = [{ name: "something" }, { name: "something else" }];
         fetchMock.getOnce(`http://localhost:4000/api/v1/bookmarks`, {
           body: {
@@ -127,6 +125,56 @@ describe("Redux actions", () => {
         ];
         const store = mockStore({ bookmarks: [] });
         return store.dispatch(actions.fetchBookmarks()).then(() => {
+          // return of async actions
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+
+      it("creates actions ADDING_BOOKMARK and ADD_BOOKMARK when posting bookmarks", () => {
+        const bookmark = { repoId: 1, isBookmarked: true };
+        fetchMock.postOnce(`http://localhost:4000/api/v1/bookmarks`, {
+          body: {
+            status: "success",
+            data: {
+              data: bookmark
+            }
+          },
+          headers: { "content-type": "application/json" }
+        });
+        const expectedActions = [
+          { type: types.ADDING_BOOKMARK, payload: true },
+          {
+            type: types.ADD_BOOKMARK,
+            payload: bookmark
+          },
+          { type: types.ADDING_BOOKMARK, payload: false }
+        ];
+        const store = mockStore({ bookmarks: [] });
+        return store.dispatch(actions.postBookmark(bookmark)).then(() => {
+          // return of async actions
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+
+      it("creates actions DELETING_BOOKMARK and DELETE_BOOKMARK when deleting bookmarks", () => {
+        const bookmark = { repoId: 1, isBookmarked: true };
+        fetchMock.deleteOnce(`http://localhost:4000/api/v1/bookmarks`, {
+          body: {
+            status: "success",
+            data: null
+          },
+          headers: { "content-type": "application/json" }
+        });
+        const expectedActions = [
+          { type: types.DELETING_BOOKMARK, payload: true },
+          {
+            type: types.REMOVE_BOOKMARK,
+            payload: bookmark.id
+          },
+          { type: types.DELETING_BOOKMARK, payload: false }
+        ];
+        const store = mockStore({ bookmarks: [] });
+        return store.dispatch(actions.deleteBookmark(bookmark.id)).then(() => {
           // return of async actions
           expect(store.getActions()).toEqual(expectedActions);
         });

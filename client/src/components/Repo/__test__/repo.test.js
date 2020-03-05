@@ -1,36 +1,25 @@
 import Repo from "../Repo";
 import React from "react";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { render, waitForElement, fireEvent } from "@testing-library/react";
 import reducer, { initialState } from "../../../store/reducers/bookmarks";
-import { FetchMock } from "@react-mock/fetch";
+import thunkMiddleware from "redux-thunk";
 
 // need to add composeReducers if want to test reducers/actions
-function renderWithReduxFetch({
+function renderWithRedux({
   initialState,
-  store = createStore(combineReducers({ bookmarks: reducer }), initialState)
+  store = createStore(
+    combineReducers({ bookmarks: reducer }),
+    initialState,
+    applyMiddleware(thunkMiddleware)
+  )
 } = {}) {
   return {
     ...render(
-      <FetchMock
-        mocks={[
-          {
-            matcher: "http://localhost:4000/api/v1/bookmarks",
-            method: "DELETE",
-            response: 204
-          },
-          {
-            matcher: "http://localhost:4000/api/v1/bookmarks",
-            method: "POST",
-            response: 201
-          }
-        ]}
-      >
-        <Provider store={store}>
-          <Repo />
-        </Provider>
-      </FetchMock>
+      <Provider store={store}>
+        <Repo />
+      </Provider>
     ),
     store
   };
@@ -54,17 +43,17 @@ const mockRepo = {
 describe("<Repo /> unit tests", () => {
   // SNAPSHOT
   it("matches the previous snapshot", () => {
-    const { container } = renderWithReduxFetch();
+    const { container } = renderWithRedux();
     expect(container).toMatchSnapshot();
   });
 
   it("renders initial state with Bookmark text visible", async () => {
-    const { getByText } = renderWithReduxFetch();
+    const { getByText } = renderWithRedux();
     await waitForElement(() => getByText("Bookmark"));
   });
 
   it("toggles un/bookmark", async () => {
-    const { getByText } = renderWithReduxFetch();
+    const { getByText } = renderWithRedux();
     await waitForElement(() => getByText("Bookmark"));
 
     fireEvent.click(getByText("Bookmark"));
